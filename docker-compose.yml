@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    container_name: training-app
+    build:
+      context: .
+    volumes:
+      - ./myapp:/usr/src/myapp
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "cd webapp && python manage.py makemigrations && python manage.py migrate
+          python manage.py runserver 0.0.0.0:8000"
