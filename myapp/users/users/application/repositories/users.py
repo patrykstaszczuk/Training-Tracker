@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from users.domain.value_objects import UserId
-from users.domain.entities.domain import User
+from users.domain.entities import User
+import copy
+from typing import Dict
 
 
 class UsersRepository(ABC):
@@ -13,3 +15,16 @@ class UsersRepository(ABC):
     @abstractmethod
     def save(self, user: User) -> None:
         pass
+
+
+class InMemoryUserRepository(UsersRepository):
+    """ in memory db implementation for testing purpose """
+
+    def __init__(self) -> None:
+        self._storage: Dict[UserId, User] = {}
+
+    def get(self, user_id: UserId) -> User:
+        return copy.deepcopy(self._storage[user_id])
+
+    def save(self, user: User) -> None:
+        self._storage[user.id] = copy.deepcopy(user)

@@ -1,5 +1,9 @@
-from users.application.repositories.users import UsersRepository
+from users.application.repositories.users import (
+    UsersRepository,
+    InMemoryUserRepository,
+    )
 
 __all__ = [
-    'UsersRepository'
+    'UsersRepository',
+    "InMemoryUserRepository",
 ]
