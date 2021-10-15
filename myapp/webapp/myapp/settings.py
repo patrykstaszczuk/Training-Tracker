@@ -37,6 +37,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+INJECTOR_MODULES = [
+    'profile.Profile',
+    'profile_infrastructure.ProfileInfrastructure',
+]
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,11 +54,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'training_api',
     'profile',
     'profile_infrastructure',
     'user_auth',
     'django_injector',
-    'training_api'
+
 ]
 
 MIDDLEWARE = [
