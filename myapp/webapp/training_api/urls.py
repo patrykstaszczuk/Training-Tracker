@@ -6,5 +6,6 @@ app_name = 'training_api'
 
 urlpatterns = [
     path('profile/create', views.CreateProfileApi.as_view(),
-         name='create-profile'),
+         name='profile-create'),
+    path('profile', views.RetrieveProfileApi.as_view(), name='profile-retrieve'),
 ]

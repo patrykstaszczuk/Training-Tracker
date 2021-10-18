@@ -1,5 +1,5 @@
-# from users_infrastructure.queries.users import InMemoryGetUserTrainingProfile
-#
-# __all__ = [
-#     "InMemoryGetUserTrainingProfile",
-# ]
+from profile_infrastructure.queries.profile import DjangoGetUserTrainingProfile
+
+__all__ = [
+    "DjangoGetUserTrainingProfile",
+]

@@ -6,7 +6,8 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 
-CREATING_PROFILE_URL = reverse('training_api:create-profile')
+CREATING_PROFILE_URL = reverse('training_api:profile-create')
+RETRIEVE_PROFILE_URL = reverse('training_api:profile-retrieve')
 
 
 class TrainingApiTests(TestCase):
@@ -27,3 +28,14 @@ class TrainingApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         profile = Profile.objects.get(user=self.user.id)
         self.assertEqual(profile.weigth, payload['weigth'])
+
+    def test_retrieving_profile_endpoint(self) -> None:
+        profile = Profile.objects.create(
+            user_id=self.user.id,
+            main_sport='cycling'
+            )
+
+        res = self.client.get(RETRIEVE_PROFILE_URL, format='json')
+        print(res.json())
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.json()['user_id'], profile.user_id)

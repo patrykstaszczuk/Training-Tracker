@@ -49,10 +49,12 @@ class Zones(ABC):
         return string_rep[:-1]
 
     @staticmethod
-    def from_db_to_object(zones_as_string: str):
+    def from_db_to_object(zones_as_string: str) -> 'Zones':
         """ convert string representation of zones to object """
-        raw_zones = list(zones_as_string.split("/"))
-        return Zones(*[zone for zone in raw_zones])
+        if zones_as_string is not None:
+            raw_zones = list(zones_as_string.split("/"))
+            return Zones(*[zone for zone in raw_zones])
+        return
 
 
 class HrZones(Zones):

@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from profile.domain.value_objects import Zones, UserId
+from typing import TypedDict
 
 
-@dataclass
-class ProfileDto:
+class ProfileDetails(TypedDict):
     main_sport: str
     weigth: int
     heigth: int
@@ -15,8 +15,8 @@ class ProfileDto:
     lactate_thr: int
 
 
-class GetUserTrainingProfile(ABC):
+class GetUserTrainingProfileDetails(ABC):
 
     @abstractmethod
-    def query(self, user_id: UserId) -> ProfileDto:
+    def query(self, user_id: UserId) -> ProfileDetails:
         pass

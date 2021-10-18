@@ -21,6 +21,9 @@ from profile.application.use_cases import (
     CreateUserProfile,
     CreateUserProfileDto,
 )
+from profile.application.queries import (
+    GetUserTrainingProfileDetails,
+)
 
 __all__ = [
     #injector
@@ -41,12 +44,14 @@ __all__ = [
     "Ftp",
     "MaxHr",
     "LactateThr",
-    # user usecases
+    # use cases
     "SetTrainingZonesBoundary",
     "CreateUserProfile",
-    # input dto's
+    # input dtos
     "SetTrainingZonesOutputDto",
     "CreateUserProfileDto",
+    # queries
+    "GetUserTrainingProfileDetails",
 ]
 
 

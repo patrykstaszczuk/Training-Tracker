@@ -9,7 +9,6 @@ from profile.application.repositories import ProfileRepository
 @dataclass(frozen=True)
 class SetTraningSpecificInformationDto:
     user_id: UserId
-    weigth: int = None
     heigth: int = None
     ftp: int = None
     max_hr: int = None
@@ -30,7 +29,6 @@ class SetTraningSpecificInformation:
     def execute(self, input_dto: SetTraningSpecificInformationDto) -> None:
         profile = self.profile_repo.get(input_dto.user_id)
         profile.update(
-            weigth=input_dto.weigth,
             heigth=input_dto.heigth,
             ftp=input_dto.ftp,
             max_hr=input_dto.max_hr,

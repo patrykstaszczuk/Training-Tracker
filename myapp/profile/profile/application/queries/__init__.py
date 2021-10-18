@@ -1,9 +1,9 @@
 from profile.application.queries.profile import (
-    ProfileDto,
-    GetUserTrainingProfile,
+    ProfileDetails,
+    GetUserTrainingProfileDetails,
 )
 
 __all__ = [
-    "ProfileDto",
+    "ProfileDetails",
     "GetUserTrainingProfile",
 ]

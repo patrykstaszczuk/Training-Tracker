@@ -23,7 +23,6 @@ class UserProfile:
         self,
         user_id: int,
         main_sport: MainSport,
-        weigth: Weigth = None,
         heigth: Heigth = None,
         ftp: Ftp = None,
         max_hr: MaxHr = None,
@@ -34,7 +33,6 @@ class UserProfile:
     ) -> None:
         self.user_id = user_id
         self.main_sport = main_sport
-        self.weigth = weigth
         self.heigth = heigth
         self.ftp = ftp
         self.max_hr = max_hr

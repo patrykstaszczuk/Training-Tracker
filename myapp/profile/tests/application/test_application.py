@@ -24,7 +24,6 @@ from profile import (
 )
 from profile.domain.value_objects import (
     MainSport,
-    Weigth,
     Heigth,
     Ftp,
     MaxHr,
@@ -64,17 +63,15 @@ class UseCases(TestCase):
         input_dto = CreateUserProfileDto(
             user_id=1,
             main_sport=MainSport('cycling'),
-            weigth=Weigth(72),
             heigth=Heigth(188),
         )
         create_profile(self.repo).execute(input_dto)
-        self.assertEqual(self.repo.get(1).weigth, input_dto.weigth.value)
+        self.assertEqual(self.repo.get(1).heigth, input_dto.heigth.value)
 
     def test_set_extra_user_information_succeed(self) -> None:
         profile = self.repo.get(user_id=1)
         input_dto = SetTraningSpecificInformationDto(
             user_id=profile.user_id,
-            weigth=75,
             heigth=188,
             ftp=300,
             max_hr=195,
@@ -83,7 +80,6 @@ class UseCases(TestCase):
         set_user_training_attributes(self.repo).execute(input_dto)
         profile = self.repo.get(user_id=1)
 
-        assert profile.weigth == input_dto.weigth
         assert profile.heigth == input_dto.heigth
         assert profile.ftp == input_dto.ftp
         assert profile.max_hr == input_dto.max_hr

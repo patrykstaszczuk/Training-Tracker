@@ -16,7 +16,6 @@ from profile.domain.entities import UserProfile
 class CreateUserProfileDto:
     user_id: int
     main_sport: MainSport
-    weigth: Weigth = None
     heigth: Heigth = None
     ftp: Ftp = None
     max_hr: MaxHr = None
