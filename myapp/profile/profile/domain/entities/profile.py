@@ -2,7 +2,6 @@ from profile.domain.value_objects import (
     Zones,
     UserId,
     MainSport,
-    Weigth,
     Heigth,
     Ftp,
     MaxHr,

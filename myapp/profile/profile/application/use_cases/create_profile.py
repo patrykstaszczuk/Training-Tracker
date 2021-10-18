@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from profile.domain.value_objects import (
     Zones,
     MainSport,
-    Weigth,
     Heigth,
     Ftp,
     MaxHr,

@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from profile import (
     MainSport,
-    Weigth,
     Heigth,
     Ftp,
     MaxHr,
@@ -18,14 +17,6 @@ class MainSportField(CustomField):
     def to_internal_value(self, data):
         try:
             return MainSport(data)
-        except ValueError as exc:
-            raise serializers.ValidationError(exc)
-
-
-class WeigthField(CustomField):
-    def to_internal_value(self, data):
-        try:
-            return Weigth(data)
         except ValueError as exc:
             raise serializers.ValidationError(exc)
 

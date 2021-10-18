@@ -102,15 +102,6 @@ class MainSport(ProfileAttribute):
         self._value = value.lower()
 
 
-class Weigth(ProfileAttribute):
-    def __set__(self, obj, value) -> None:
-        if not isinstance(value, (float, int)):
-            raise ValueError('Provide a number')
-        if not 20 < value < 300:
-            raise ValueError('Incorrect weigth')
-        self._value = round(value, 2)
-
-
 class Heigth(ProfileAttribute):
     def __set__(self, obj, value) -> None:
         if not isinstance(value, int):

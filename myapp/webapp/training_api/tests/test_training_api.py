@@ -21,13 +21,12 @@ class TrainingApiTests(TestCase):
 
         payload = {
             'main_sport': 'cycling',
-            'weigth': 80,
             'heigth': 180,
         }
         res = self.client.post(CREATING_PROFILE_URL, payload, format='json')
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         profile = Profile.objects.get(user=self.user.id)
-        self.assertEqual(profile.weigth, payload['weigth'])
+        self.assertEqual(profile.heigth, payload['heigth'])
 
     def test_retrieving_profile_endpoint(self) -> None:
         profile = Profile.objects.create(

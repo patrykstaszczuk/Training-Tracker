@@ -6,8 +6,7 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 COPY ./myapp .
-
-
+RUN pip install ./profile ./profile_infrastructure ./health_diary
 RUN adduser --disabled-password user
 RUN chown -R user:user /usr/src
 USER user
