@@ -56,5 +56,4 @@ class RetrieveProfileApi(BaseAuthPermClass, APIView):
 
     def get(self, request, *args, **kwargs):
         data = self.get_user_profile_query.query(request.user.id)
-        json_data = json.dumps(data)
-        return Response(data=json_data, status=status.HTTP_200_OK)
+        return Response(data=data, status=status.HTTP_200_OK)

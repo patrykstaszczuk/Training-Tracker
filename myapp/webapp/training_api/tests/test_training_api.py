@@ -35,6 +35,5 @@ class TrainingApiTests(TestCase):
             )
 
         res = self.client.get(RETRIEVE_PROFILE_URL, format='json')
-        print(res.json())
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.json()['user_id'], profile.user_id)
+        self.assertEqual(res.data['user_id'], profile.user_id)

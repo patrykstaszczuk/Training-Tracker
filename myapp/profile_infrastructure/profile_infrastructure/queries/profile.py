@@ -22,7 +22,6 @@ def _row_to_typed_dict(profile: object) -> ProfileDetails:
     dict = ProfileDetails(
         user_id=profile.user.id,
         main_sport=profile.main_sport,
-        weigth=profile.weigth,
         heigth=profile.heigth,
         ftp=profile.ftp,
         max_hr=profile.max_hr,

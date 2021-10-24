@@ -14,16 +14,14 @@ def repo() -> DjangoProfileRepository:
 def user() -> User:
     return User.objects.create(username='test', password='password')
 
-# def setUp(self):
-#     self.repo = DjangoProfileRepository()
-#     self.user = User.objects.create(username='test', password='password')
 
-
+@pytest.mark.django_db
 def test_creating_user_profile_success(repo: DjangoProfileRepository, user: User) -> None:
     profile = UserProfile(user_id=user.id, main_sport='cycling')
     repo.save(profile)
 
 
+@pytest.mark.django_db
 def test_retrieving_user_profile_success(user: User, repo: DjangoProfileRepository):
     obj = Profile.objects.create(user=user, main_sport='cycling')
     profile = repo.get(user.id)

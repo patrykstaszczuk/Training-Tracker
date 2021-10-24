@@ -1,17 +1,24 @@
 from dataclasses import dataclass
 from health_diary.application.repositories import HealthDiaryRepository
+from health_diary.domain.value_objects import (
+    Weigth,
+    StressScore,
+    MoodScore,
+    SleepLength,
+    RestHr,
+)
 
 
 @dataclass(frozen=True)
 class SettingDailyStatisticsInputDto:
     user_id: int
-    weigth: int = None
-    rest_hr: int = None
-    morning_stress_score: int = None
-    evening_stress_score: int = None
-    morning_mood: int = None
-    evening_mood: int = None
-    sleep_length: int = None
+    weigth: Weigth = None
+    rest_hr: RestHr = None
+    morning_stress_score: StressScore = None
+    evening_stress_score: StressScore = None
+    morning_mood: MoodScore = None
+    evening_mood: MoodScore = None
+    sleep_length: SleepLength = None
 
 
 class SettingDailyStatistics:

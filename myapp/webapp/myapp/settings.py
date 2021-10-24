@@ -16,14 +16,23 @@ import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_PATH = BASE_DIR.parent
+
 PROFILE_PATH = os.path.join(PROJECT_PATH, 'profile')
 PROFILE_INFRASTRUCTURE_PATH = os.path.join(
     PROJECT_PATH, 'profile_infrastructure')
+
+HEALTH_DIARY_PATH = os.path.join(PROJECT_PATH, 'health_diary')
+HEALTH_DIARY_INFRASTRUCTURE_PATH = os.path.join(
+    PROJECT_PATH, 'health_diary_infrastructure')
 
 if PROFILE_PATH not in sys.path:
     sys.path.insert(0, PROFILE_PATH)
 if PROFILE_INFRASTRUCTURE_PATH not in sys.path:
     sys.path.insert(0, PROFILE_INFRASTRUCTURE_PATH)
+if HEALTH_DIARY_PATH not in sys.path:
+    sys.path.insert(0, HEALTH_DIARY_PATH)
+if HEALTH_DIARY_INFRASTRUCTURE_PATH not in sys.path:
+    sys.path.insert(0, HEALTH_DIARY_INFRASTRUCTURE_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -55,8 +64,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'training_api',
+    'health_diary_api',
     'profile',
     'profile_infrastructure',
+    'health_diary',
+    'health_diary_infrastructure',
     'user_auth',
     'django_injector',
 

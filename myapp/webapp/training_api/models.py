@@ -7,7 +7,6 @@ class Profile(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     main_sport = models.CharField(max_length=15)
-    weigth = models.FloatField(null=True)
     heigth = models.IntegerField(null=True)
     ftp = models.IntegerField(null=True)
     max_hr = models.IntegerField(null=True)
