@@ -7,21 +7,29 @@ from health_diary.domain.value_objects import (
     SleepLength,
     RestHr,
 )
+import datetime
 
 
 class HealthDiaryDto(TypedDict):
     user_id: int
-    weigth: Weigth = None
-    rest_hr: RestHr = None
-    morning_stress_score: StressScore = None
-    evening_stress_score: StressScore = None
-    morning_mood: MoodScore = None
-    evening_mood: MoodScore = None
-    sleep_length: SleepLength = None
+    date: str
+    weigth: Weigth
+    rest_hr: RestHr
+    morning_stress_score: StressScore
+    evening_stress_score: StressScore
+    morning_mood: MoodScore
+    evening_mood: MoodScore
+    sleep_length: SleepLength
 
 
 class GettingDailyStatistics(ABC):
+    """ abc class for retreiving statistics for given day"""
 
     @abstractmethod
-    def query(self, user_id: int) -> HealthDiaryDto:
+    def query(self, user_id: int, date: datetime) -> HealthDiaryDto:
         pass
+
+
+class GettingSpecificStatistic(ABC):
+    """ abc class for retrieving specific statiscit based on the name """
+    pass
