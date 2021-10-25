@@ -4,18 +4,13 @@ import datetime
 
 
 class HealthDiaryAttribute(ABC):
-    def __init__(self, value=None):
-        if value:
-            self.validate(value)
+    def __init__(self, value):
+        self.validate(value)
         self._value = value
 
-    def __get__(self, obj):
+    @property
+    def value(self):
         return self._value
-
-    def __set__(self, obj, value=None) -> None:
-        if value:
-            self.validate(value)
-        self._value = value
 
     @abstractmethod
     def validate(self, value: Union[str, int]) -> None:
