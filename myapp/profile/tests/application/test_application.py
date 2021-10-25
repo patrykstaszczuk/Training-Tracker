@@ -29,6 +29,9 @@ from profile.domain.value_objects import (
     MaxHr,
     LactateThr,
     )
+from profile.domain.exceptions import (
+    ProfileAlreadyCreated,
+)
 
 
 def set_user_training_attributes(repo: ProfileRepository) -> SetTraningSpecificInformation:
@@ -63,6 +66,13 @@ def repo(profile: UserProfile) -> ProfileRepository:
     return repo
 
 
+@pytest.fixture()
+def profile_repo_mock(profile: UserProfile) -> Mock:
+    return Mock(
+        spec_set=ProfileRepository,
+        save=Mock(side_effect=ProfileAlreadyCreated()))
+
+
 def test_create_basic_user_profile_success(repo: ProfileRepository) -> None:
 
     input_dto = CreateUserProfileDto(
@@ -72,6 +82,16 @@ def test_create_basic_user_profile_success(repo: ProfileRepository) -> None:
     )
     create_profile(repo).execute(input_dto)
     assert repo.get(1).heigth == input_dto.heigth.value
+
+
+def test_profile_already_created(profile_repo_mock) -> None:
+    with pytest.raises(ProfileAlreadyCreated):
+        input_dto = CreateUserProfileDto(
+            user_id=1,
+            main_sport=MainSport('cycling'),
+            heigth=Heigth(188),
+        )
+        create_profile(profile_repo_mock).execute(input_dto)
 
 
 def test_set_extra_user_information_succeed(repo: ProfileRepository) -> None:

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import TypedDict
+from typing import TypedDict, List
 from health_diary.domain.value_objects import (
     Weigth,
     StressScore,
@@ -12,7 +12,7 @@ import datetime
 
 class HealthDiaryDto(TypedDict):
     user_id: int
-    date: str
+    date: datetime.datetime
     weigth: Weigth
     rest_hr: RestHr
     morning_stress_score: StressScore
@@ -20,6 +20,10 @@ class HealthDiaryDto(TypedDict):
     morning_mood: MoodScore
     evening_mood: MoodScore
     sleep_length: SleepLength
+
+
+class SpecificStatisticHistoryDto(TypedDict):
+    values: List[int | float | datetime.datetime]
 
 
 class GettingDailyStatistics(ABC):
@@ -32,4 +36,7 @@ class GettingDailyStatistics(ABC):
 
 class GettingSpecificStatistic(ABC):
     """ abc class for retrieving specific statiscit based on the name """
-    pass
+
+    @abstractmethod
+    def query(self, user_id: int, statistic: str) -> SpecificStatisticHistoryDto:
+        pass

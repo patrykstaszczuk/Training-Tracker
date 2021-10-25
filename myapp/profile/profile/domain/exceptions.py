@@ -20,3 +20,7 @@ class MaxHrNotSet(DomainFailed):
 
 class MissingUserId(DomainFailed):
     pass
+
+
+class ProfileAlreadyCreated(DomainFailed):
+    pass
