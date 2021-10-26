@@ -7,6 +7,7 @@ RUN pip install -r requirements.txt
 
 COPY ./myapp .
 RUN pip install ./profile ./profile_infrastructure ./health_diary ./health_diary_infrastructure
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/myapp/webapp"
 RUN adduser --disabled-password user
 RUN chown -R user:user /usr/src
 USER user

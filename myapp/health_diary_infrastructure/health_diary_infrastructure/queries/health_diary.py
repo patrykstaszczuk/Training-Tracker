@@ -27,7 +27,7 @@ class DjangoGettingDailyStatistics(GettingDailyStatistics):
             rest_hr=diary.rest_hr,
             morning_sress_score=diary.morning_sress_score,
             evening_stress_score=diary.evening_stress_score,
-            moring_mood=diary.moring_mood,
+            morning_mood=diary.morning_mood,
             evening_mood=diary.evening_mood,
             sleep_length=diary.sleep_length,
         )
@@ -36,10 +36,10 @@ class DjangoGettingDailyStatistics(GettingDailyStatistics):
 
 class DjangoGettingSpecificStatisticHistory(GettingSpecificStatistic):
 
-    def query(self, user_id: int, statistic: str) -> SpecificStatisticHistoryDto:
+    def query(self, user_id: int, statistic: str, number: int = 7) -> SpecificStatisticHistoryDto:
         list_of_values = models.HealthDiary.objects.filter(
             user_id=user_id,
-            ).values_list(statistic, flat=True)
+            ).values_list(statistic, flat=True)[:number]
         return self._row_to_typed_dict(list_of_values)
 
     def _row_to_typed_dict(self, values) -> SpecificStatisticHistoryDto:
