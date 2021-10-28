@@ -35,7 +35,8 @@ class GettingDailyStatistics(ABC):
 
 
 class GettingSpecificStatistic(ABC):
-    """ abc class for retrieving specific statiscit based on the name """
+    """ abc class for retrieving given number of specific statistic based
+     on the name """
 
     @abstractmethod
     def query(self, user_id: int, statistic: str, number: int) -> SpecificStatisticHistoryDto:
