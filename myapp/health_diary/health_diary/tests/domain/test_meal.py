@@ -13,13 +13,3 @@ def test_create_meal_success() -> None:
         name='test dish',
         calories=1000,
     )
-
-
-def test_create_meal_name_too_long() -> None:
-    with pytest.raises(MealNameTooLong):
-        Meal(
-            creator_id=1,
-            date=datetime.date.today(),
-            name='mealmusthaveatmost20characters',
-            calories=1000,
-        )

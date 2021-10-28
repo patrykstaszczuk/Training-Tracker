@@ -17,9 +17,6 @@ class Meal:
         self.name = name
         self.calories = calories
 
-        if len(name) > 20:
-            raise MealNameTooLong()
-
     @staticmethod
     def create(creator_id: int, date: datetime.date, name: str, calories: int):
         return Meal(
