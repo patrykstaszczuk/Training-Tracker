@@ -36,7 +36,8 @@ class DjangoHealthDiaryRepository(HealthDiaryRepository):
                 'sleep_length': health_diary.sleep_length,
             }
         )
-        for meal in health_diary.meals:
+
+        for meal in health_diary.meals_to_be_add:
             meal = models.Meal.objects.create(
                 user_id=meal.creator_id,
                 date=meal.date,
@@ -44,6 +45,10 @@ class DjangoHealthDiaryRepository(HealthDiaryRepository):
                 calories=meal.calories,
                 diary=diary
             )
+
+        if health_diary.meals_to_be_remove:
+            models.Meal.objects.filter(
+                user_id=diary.user_id, id__in=health_diary.meals_to_be_remove).delete()
 
 
 def _row_to_entity(diary: models.HealthDiary) -> HealthDiary:

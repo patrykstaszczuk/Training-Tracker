@@ -30,10 +30,23 @@ class HealthDiary:
         self.evening_mood = evening_mood
         self.sleep_length = sleep_length
         self.meals = meals
+        self._meals_to_be_add: list[Meal] = []
+        self._meals_to_be_remove: list[int] = []
 
     def set_attrs(self, **attrs):
         for attr in attrs:
             setattr(self, attr, attrs[attr])
 
-    def add_meals(self, meals: list[Meal]):
-        self.meals.extend(meals)
+    def add_meals(self, meals: list[Meal]) -> None:
+        self._meals_to_be_add.extend(meals)
+
+    def remove_meals(self, meals_ids: list[int]) -> None:
+        self._meals_to_be_remove.extend(meals_ids)
+
+    @property
+    def meals_to_be_add(self):
+        return self._meals_to_be_add
+
+    @property
+    def meals_to_be_remove(self):
+        return self._meals_to_be_remove

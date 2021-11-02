@@ -4,7 +4,8 @@ from health_diary.application.use_cases import(
     AddingMealToDiary,
     AddingMealToDiaryInputdto,
 )
-from unittest.mock import Mock
+from health_diary.domain.entities import HealthDiary
+from unittest.mock import Mock, patch
 from .common_fixtures import (
     user_id,
     diary_repo_mock,
@@ -44,7 +45,9 @@ def test_save_health_diary(
         user_id: int,
         add_meal_uc: AddingMealToDiary,
         input_dto: AddingMealToDiaryInputdto,
-        diary_repo_mock: Mock
+        diary_repo_mock: Mock,
         ) -> None:
-    add_meal_uc.execute(input_dto)
-    diary_repo_mock.save.assert_called_once()
+
+    with patch('health_diary.domain.entities.HealthDiary.add_meals') as mock:
+        add_meal_uc.execute(input_dto)
+    mock.assert_called_once()

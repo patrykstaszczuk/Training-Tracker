@@ -36,6 +36,5 @@ class AddingMealToDiary:
                     name=meal['name'],
                     calories=meal['calories'],
                 ))
-
         diary.add_meals(meals)
         self.repo.save(diary)

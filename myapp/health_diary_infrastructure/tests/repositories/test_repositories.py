@@ -54,9 +54,34 @@ def test_saving_diary(user) -> None:
         user_id=user.id,
         weigth=100,
         rest_hr=54,
-        meals=meals
     )
+    diary.add_meals(meals)
     DjangoHealthDiaryRepository.save(diary)
 
     diary = DjangoHealthDiaryRepository.get(user.id)
     assert len(diary.meals) == 2
+
+
+@pytest.mark.django_db
+def test_remove_meals_from_diary(user) -> None:
+    meals = [
+        Meal.create(user.id, date=datetime.date.today(),
+                    name='test1', calories=1000),
+        Meal.create(user.id, date=datetime.date.today(),
+                    name='test2', calories=1000)
+    ]
+    diary = HealthDiary(
+        user_id=user.id,
+        weigth=100,
+        rest_hr=54,
+    )
+    diary.add_meals(meals)
+    DjangoHealthDiaryRepository.save(diary)
+
+    diary = DjangoHealthDiaryRepository.get(user.id)
+    meals_to_be_remove = [diary.meals[0].meal_id]
+    diary.remove_meals(meals_to_be_remove)
+    DjangoHealthDiaryRepository.save(diary)
+
+    diary = DjangoHealthDiaryRepository.get(user.id)
+    assert len(diary.meals) == 1
