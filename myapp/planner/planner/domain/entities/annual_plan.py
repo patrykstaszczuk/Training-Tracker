@@ -8,9 +8,9 @@ class AnnualPlan:
         user_id: int,
         start_date: datetime.date,
         sport_discipline: str,
-        races: list[Race],
         volume: int,
-        goals: str
+        races: list[Race, ] = None,
+        goals: str = None,
 
     ) -> None:
         self.user_id = user_id
@@ -19,6 +19,10 @@ class AnnualPlan:
         self.races = races
         self.volume = volume
         self.goals = goals
+
+    @property
+    def end_date(self) -> datetime.date:
+        return self.start_date + datetime.timedelta(365)
 
     @staticmethod
     def create(

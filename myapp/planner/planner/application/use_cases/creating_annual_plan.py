@@ -14,8 +14,8 @@ class CreatingAnnualPlanInputDto:
     user_id: int
     start_date: datetime.date
     sport_discipline: str
-    races: list[Race, ]
     volume: int
+    races: list[Race, ] = None
     goals: str = None
 
 
@@ -27,7 +27,6 @@ class CreatingAnnualPlan:
         self.repo = repo
 
     def execute(self, input_dto: CreatingAnnualPlanInputDto) -> None:
-        print(self.repo)
         if input_dto.start_date < datetime.date.today():
             raise AnnualPlanStartingInThePast(
                 'Annual plan cannot start in the past')
