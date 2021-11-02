@@ -2,6 +2,7 @@ from .foundation import user
 from health_diary_api import models
 from health_diary_infrastructure.repositories import DjangoHealthDiaryRepository
 from health_diary.domain.entities import HealthDiary, Meal
+from health_diary.domain.exceptions import DiaryDoesNotExists
 import datetime
 import pytest
 
@@ -29,6 +30,19 @@ def test_getting_diary(user, diary_with_meals) -> None:
 
 
 @pytest.mark.django_db
+def test_should_create_diary_for_today_if_not_exists(user) -> None:
+    assert DjangoHealthDiaryRepository.get(user_id=user.id)
+
+
+@pytest.mark.django_db
+def test_should_raise_domain_exception_if_diary_for_given_date_not_found(user) -> None:
+    with pytest.raises(DiaryDoesNotExists):
+        date = datetime.date.today() - datetime.timedelta(1)
+        DjangoHealthDiaryRepository.get(
+            user_id=user.id, date=date)
+
+
+@pytest.mark.django_db
 def test_saving_diary(user) -> None:
     meals = [
         Meal.create(user.id, date=datetime.date.today(),
@@ -43,3 +57,6 @@ def test_saving_diary(user) -> None:
         meals=meals
     )
     DjangoHealthDiaryRepository.save(diary)
+
+    diary = DjangoHealthDiaryRepository.get(user.id)
+    assert len(diary.meals) == 2

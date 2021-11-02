@@ -4,3 +4,7 @@ class DomainFailed(Exception):
 
 class MealNameTooLong(DomainFailed):
     pass
+
+
+class DiaryDoesNotExists(DomainFailed):
+    pass
