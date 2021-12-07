@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     main_sport = models.CharField(max_length=15)
-    heigth = models.IntegerField(null=True)
+    height = models.IntegerField(null=True)
     ftp = models.IntegerField(null=True)
     max_hr = models.IntegerField(null=True)
     hr_zones = models.CharField(max_length=50, null=True)

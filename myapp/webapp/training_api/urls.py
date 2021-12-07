@@ -7,5 +7,5 @@ app_name = 'training_api'
 urlpatterns = [
     path('profile/create', views.CreateProfileApi.as_view(),
          name='profile-create'),
-    path('profile', views.ProfileApi.as_view(), name='profile'),
+    path('profile/', views.ProfileApi.as_view(), name='profile'),
 ]

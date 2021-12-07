@@ -95,7 +95,7 @@ def test_create_max_hr_succes() -> None:
 def test_create_max_hr_incorrect_value() -> None:
     with pytest.raises(ValueError):
         MaxHr('string')
-        
+
     with pytest.raises(ValueError):
         MaxHr(250)
 

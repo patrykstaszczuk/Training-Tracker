@@ -2,6 +2,7 @@ import injector
 from profile.domain.entities import UserProfile
 from profile.application.repositories import ProfileRepository
 from profile.domain.value_objects import (
+    ProfileAttribute,
     ZonePercent,
     HrZones,
     PowerZones,
@@ -32,6 +33,7 @@ __all__ = [
     # repositories
     "ProfileRepository",
     # Value objects
+    "ProfileAttribute",
     "UsersId",
     "HrZones",
     "PowerZones",
@@ -62,3 +64,10 @@ class Profile(injector.Module):
         repo: ProfileRepository
     ) -> CreateUserProfile:
         return CreateUserProfile(repo)
+
+    @injector.provider
+    def set_profile_information_uc(
+        self,
+        repo: ProfileRepository
+    ) -> SetTrainingSpecificInformation:
+        return SetTrainingSpecificInformation(repo)

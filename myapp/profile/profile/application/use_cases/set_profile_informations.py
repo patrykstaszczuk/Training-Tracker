@@ -9,11 +9,9 @@ from profile.application.repositories import ProfileRepository
 @dataclass(frozen=True)
 class SetTrainingSpecificInformationDto:
     user_id: UserId
-    heigth: int = None
+    height: int = None
     ftp: int = None
     max_hr: int = None
-    hr_zones: Zones = None
-    pw_zones: Zones = None
     lactate_thr: int = None
 
 
@@ -28,12 +26,9 @@ class SetTrainingSpecificInformation:
 
     def execute(self, input_dto: SetTrainingSpecificInformationDto) -> None:
         profile = self.profile_repo.get(input_dto.user_id)
-        profile.update(
-            heigth=input_dto.heigth,
-            ftp=input_dto.ftp,
-            max_hr=input_dto.max_hr,
-            hr_zones=input_dto.hr_zones,
-            pw_zones=input_dto.pw_zones,
-            lactate_thr=input_dto.lactate_thr
-        )
+        attrs = {}
+        for item in vars(input_dto):
+            if getattr(input_dto, item):
+                attrs.update({item: getattr(input_dto, item)})
+        profile.update(**attrs)
         self.profile_repo.save(profile)

@@ -22,7 +22,7 @@ def _row_to_typed_dict(profile: object) -> ProfileDetails:
     dict = ProfileDetails(
         user_id=profile.user.id,
         main_sport=profile.main_sport,
-        heigth=profile.heigth,
+        height=profile.height,
         ftp=profile.ftp,
         max_hr=profile.max_hr,
         hr_zones=Zones.from_db_to_object(profile.hr_zones),

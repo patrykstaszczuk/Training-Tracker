@@ -5,7 +5,7 @@ from typing import TypedDict
 
 class ProfileDetails(TypedDict):
     main_sport: str
-    heigth: int
+    height: int
     ftp: int
     max_hr: int
     hr_zones: Zones
