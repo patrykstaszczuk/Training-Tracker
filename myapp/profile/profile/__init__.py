@@ -7,7 +7,7 @@ from profile.domain.value_objects import (
     PowerZones,
     UserId,
     MainSport,
-    Heigth,
+    Height,
     Ftp,
     MaxHr,
     LactateThr,
@@ -15,11 +15,11 @@ from profile.domain.value_objects import (
 from profile.application.use_cases import (
     SetTrainingZonesBoundary,
     SetTrainingZonesOutputDto,
-    )
-from profile.application.use_cases import (
     CreateUserProfile,
     CreateUserProfileDto,
-)
+    SetTrainingSpecificInformation,
+    SetTrainingSpecificInformationDto,
+    )
 from profile.application.queries import (
     GetUserTrainingProfileDetails,
 )
@@ -38,15 +38,17 @@ __all__ = [
     "ZonePercent",
     "UserId",
     "MainSport",
-    "Heigth",
+    "Height",
     "Ftp",
     "MaxHr",
     "LactateThr",
     # use cases
     "SetTrainingZonesBoundary",
     "CreateUserProfile",
+    "SetTrainingSpecificInformation",
     # input dtos
     "SetTrainingZonesOutputDto",
+    "SetTrainingSpecificInformationDto",
     "CreateUserProfileDto",
     # queries
     "GetUserTrainingProfileDetails",

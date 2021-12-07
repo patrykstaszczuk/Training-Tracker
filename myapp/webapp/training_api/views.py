@@ -9,6 +9,8 @@ from profile import (
     CreateUserProfile,
     CreateUserProfileDto,
     GetUserTrainingProfileDetails,
+    SetTrainingSpecificInformation,
+    SetTrainingSpecificInformationDto,
 )
 from .serialization import serializers
 import json
@@ -42,18 +44,34 @@ class CreateProfileApi(BaseAuthPermClass, APIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RetrieveProfileApi(BaseAuthPermClass, APIView):
+class ProfileApi(BaseAuthPermClass, APIView):
 
     @injector.inject
     def setup(
         self,
         request,
         get_user_profile_query: GetUserTrainingProfileDetails,
+        set_profile_information_uc: SetTrainingSpecificInformation,
         **kwargs
     ) -> None:
         self.get_user_profile_query = get_user_profile_query
+        self.set_profile_information_uc = set_profile_information_uc
         super().setup(request, kwargs)
 
     def get(self, request, *args, **kwargs):
         data = self.get_user_profile_query.query(request.user.id)
         return Response(data=data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        serializer = serializers.SetTrainingSpecificInformationSerializer(
+            data=request.data)
+        serializer.is_valid(raise_exception=True)
+        dto = SetTrainingSpecificInformationDto(
+            user_id=request.user.id,
+            height=serializer.data.get('height'),
+            ftp=serializer.data.get('ftp'),
+            max_hr=serializer.data.get('max_hr'),
+            lactate_thr=serializer.data.get('lactate_thr')
+        )
+        self.set_profile_information_uc.execute(dto)
+        return Response(status=status.HTTP_200_OK)

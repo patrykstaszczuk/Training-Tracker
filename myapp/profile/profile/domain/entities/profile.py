@@ -2,7 +2,7 @@ from profile.domain.value_objects import (
     Zones,
     UserId,
     MainSport,
-    Heigth,
+    Height,
     Ftp,
     MaxHr,
     LactateThr,
@@ -22,7 +22,7 @@ class UserProfile:
         self,
         user_id: int,
         main_sport: MainSport,
-        heigth: Heigth = None,
+        height: Height = None,
         ftp: Ftp = None,
         max_hr: MaxHr = None,
         hr_zones: Zones = None,
@@ -32,7 +32,7 @@ class UserProfile:
     ) -> None:
         self.user_id = user_id
         self.main_sport = main_sport
-        self.heigth = heigth
+        self.height = height
         self.ftp = ftp
         self.max_hr = max_hr
         self.hr_zones = hr_zones

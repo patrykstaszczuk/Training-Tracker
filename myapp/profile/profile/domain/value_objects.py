@@ -102,7 +102,7 @@ class MainSport(ProfileAttribute):
         self._value = value.lower()
 
 
-class Heigth(ProfileAttribute):
+class Height(ProfileAttribute):
     def __set__(self, obj, value) -> None:
         if not isinstance(value, int):
             raise ValueError('Provide a number')

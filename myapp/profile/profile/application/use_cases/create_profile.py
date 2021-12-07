@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from profile.domain.value_objects import (
     Zones,
     MainSport,
-    Heigth,
+    Height,
     Ftp,
     MaxHr,
     LactateThr,
@@ -15,7 +15,7 @@ from profile.domain.entities import UserProfile
 class CreateUserProfileDto:
     user_id: int
     main_sport: MainSport
-    heigth: Heigth = None
+    height: Height = None
     ftp: Ftp = None
     max_hr: MaxHr = None
     lactate_thr: LactateThr = None

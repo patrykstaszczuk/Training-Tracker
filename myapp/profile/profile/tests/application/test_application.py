@@ -3,8 +3,8 @@ from unittest.mock import Mock
 from profile.application.use_cases import (
     CreateUserProfile,
     CreateUserProfileDto,
-    SetTraningSpecificInformation,
-    SetTraningSpecificInformationDto,
+    SetTrainingSpecificInformation,
+    SetTrainingSpecificInformationDto,
     SetHrTrainingZones,
     SetTrainingZonesDto,
     SetPowerTrainingZones,
@@ -24,7 +24,7 @@ from profile import (
 )
 from profile.domain.value_objects import (
     MainSport,
-    Heigth,
+    Height,
     Ftp,
     MaxHr,
     LactateThr,
@@ -34,8 +34,8 @@ from profile.domain.exceptions import (
 )
 
 
-def set_user_training_attributes(repo: ProfileRepository) -> SetTraningSpecificInformation:
-    return SetTraningSpecificInformation(repo)
+def set_user_training_attributes(repo: ProfileRepository) -> SetTrainingSpecificInformation:
+    return SetTrainingSpecificInformation(repo)
 
 
 def create_profile(repo: ProfileRepository) -> CreateUserProfile:
@@ -78,10 +78,10 @@ def test_create_basic_user_profile_success(repo: ProfileRepository) -> None:
     input_dto = CreateUserProfileDto(
         user_id=1,
         main_sport=MainSport('cycling'),
-        heigth=Heigth(188),
+        height=Height(188),
     )
     create_profile(repo).execute(input_dto)
-    assert repo.get(1).heigth == input_dto.heigth.value
+    assert repo.get(1).height == input_dto.height.value
 
 
 def test_profile_already_created(profile_repo_mock) -> None:
@@ -89,14 +89,14 @@ def test_profile_already_created(profile_repo_mock) -> None:
         input_dto = CreateUserProfileDto(
             user_id=1,
             main_sport=MainSport('cycling'),
-            heigth=Heigth(188),
+            height=Height(188),
         )
         create_profile(profile_repo_mock).execute(input_dto)
 
 
 def test_set_extra_user_information_succeed(repo: ProfileRepository) -> None:
     profile = repo.get(user_id=1)
-    input_dto = SetTraningSpecificInformationDto(
+    input_dto = SetTrainingSpecificInformationDto(
         user_id=profile.user_id,
         heigth=188,
         ftp=300,

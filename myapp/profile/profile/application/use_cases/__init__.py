@@ -1,6 +1,6 @@
 from profile.application.use_cases.set_profile_informations import (
-    SetTraningSpecificInformation,
-    SetTraningSpecificInformationDto,
+    SetTrainingSpecificInformation,
+    SetTrainingSpecificInformationDto,
 )
 from profile.application.use_cases.set_zones import (
     SetHrTrainingZones,
@@ -17,8 +17,8 @@ from profile.application.use_cases.create_profile import (
 __all__ = [
     "CreateUserProfile",
     "CreateUserProfileDto",
-    "SetTraningSpecificInformation",
-    "SetTraningSpecificInformationDto",
+    "SetTrainingSpecificInformation",
+    "SetTrainingSpecificInformationDto",
     "SetHrTrainingZones",
     "SetPowerTrainingZones",
     "SetTrainingZonesDto",

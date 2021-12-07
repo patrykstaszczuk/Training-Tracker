@@ -7,7 +7,7 @@ from profile.application.repositories import ProfileRepository
 
 
 @dataclass(frozen=True)
-class SetTraningSpecificInformationDto:
+class SetTrainingSpecificInformationDto:
     user_id: UserId
     heigth: int = None
     ftp: int = None
@@ -17,7 +17,7 @@ class SetTraningSpecificInformationDto:
     lactate_thr: int = None
 
 
-class SetTraningSpecificInformation:
+class SetTrainingSpecificInformation:
     """ setting additional information about user profile """
 
     def __init__(
@@ -26,7 +26,7 @@ class SetTraningSpecificInformation:
     ) -> None:
         self.profile_repo = profile_repo
 
-    def execute(self, input_dto: SetTraningSpecificInformationDto) -> None:
+    def execute(self, input_dto: SetTrainingSpecificInformationDto) -> None:
         profile = self.profile_repo.get(input_dto.user_id)
         profile.update(
             heigth=input_dto.heigth,

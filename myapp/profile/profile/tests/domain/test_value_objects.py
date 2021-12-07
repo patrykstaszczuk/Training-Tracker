@@ -3,7 +3,7 @@ from profile.domain.value_objects import (
     Zones,
     ZonePercent,
     MainSport,
-    Heigth,
+    Height,
     Ftp,
     MaxHr,
     LactateThr,
@@ -65,14 +65,18 @@ def test_create_main_sport_invalid() -> None:
 
 
 def test_create_heigth_success() -> None:
-    Heigth(154)
+    Height(154)
 
 
 def test_create_heigth_incorrect_value() -> None:
     with pytest.raises(ValueError):
-        Heigth(50)
-        Heigth(250)
-        Heigth('string')
+        Height(50)
+
+    with pytest.raises(ValueError):
+        Height(250)
+
+    with pytest.raises(ValueError):
+        Height('string')
 
 
 def test_create_ftp_success():
@@ -91,7 +95,11 @@ def test_create_max_hr_succes() -> None:
 def test_create_max_hr_incorrect_value() -> None:
     with pytest.raises(ValueError):
         MaxHr('string')
+        
+    with pytest.raises(ValueError):
         MaxHr(250)
+
+    with pytest.raises(ValueError):
         MaxHr(99)
 
 
