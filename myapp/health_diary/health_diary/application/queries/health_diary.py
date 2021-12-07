@@ -22,6 +22,14 @@ class HealthDiaryDto(TypedDict):
     sleep_length: SleepLength
 
 
+class ListOfDiariesDto(TypedDict):
+    id = int
+    date = datetime.datetime
+    url = None
+
+    diaries: list[dict[str, id | date | url]]
+
+
 class SpecificStatisticHistoryDto(TypedDict):
     values: List[int | float | datetime.datetime]
 
@@ -31,6 +39,14 @@ class GettingDailyStatistics(ABC):
 
     @abstractmethod
     def query(self, user_id: int, date: datetime) -> HealthDiaryDto:
+        pass
+
+
+class GettingListOfDiaries(ABC):
+    """ abc class for retrieving list of diaries """
+
+    @abstractmethod
+    def query(self, user_id: int) -> ListOfDiariesDto:
         pass
 
 
