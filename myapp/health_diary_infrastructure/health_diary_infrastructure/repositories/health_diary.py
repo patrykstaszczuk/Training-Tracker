@@ -3,27 +3,31 @@ from health_diary.domain.exceptions import (
     DiaryDoesNotExists
 )
 from health_diary.domain.entities import HealthDiary, Meal
-from health_diary_api import models
+import health_diary_api
 import datetime
 
 
 class DjangoHealthDiaryRepository(HealthDiaryRepository):
 
-    def get(user_id: int, date: datetime = datetime.date.today()) -> HealthDiary:
+    def __init__(self):
+        self.health_diary_model = health_diary_api.models.HealthDiary
+        self.meal_model = health_diary_api.models.Meal
+
+    def get(self, user_id: int, date: datetime = datetime.date.today()) -> HealthDiary:
         if date == datetime.date.today():
-            diary, created = models.HealthDiary.objects.get_or_create(
+            diary, created = self.health_diary_model.objects.get_or_create(
                 user_id=user_id, date=date)
         else:
             try:
-                diary = models.HealthDiary.objects.get(
+                diary = self.health_diary_model.objects.get(
                     user_id=user_id, date=date)
-            except models.HealthDiary.DoesNotExist:
+            except self.health_diary_model.DoesNotExist:
                 raise DiaryDoesNotExists
         return _row_to_entity(diary)
 
-    def save(health_diary: HealthDiary):
+    def save(self, health_diary: HealthDiary):
 
-        diary, created = models.HealthDiary.objects.update_or_create(
+        diary, created = self.health_diary_model.objects.update_or_create(
             user_id=health_diary.user_id,
             date=datetime.date.today(),
             defaults={
@@ -38,7 +42,7 @@ class DjangoHealthDiaryRepository(HealthDiaryRepository):
         )
 
         for meal in health_diary.meals_to_be_add:
-            meal = models.Meal.objects.create(
+            meal = self.meal_model.objects.create(
                 user_id=meal.creator_id,
                 date=meal.date,
                 name=meal.name,
@@ -47,11 +51,11 @@ class DjangoHealthDiaryRepository(HealthDiaryRepository):
             )
 
         if health_diary.meals_to_be_remove:
-            models.Meal.objects.filter(
+            self.meal_model.objects.filter(
                 user_id=diary.user_id, id__in=health_diary.meals_to_be_remove).delete()
 
 
-def _row_to_entity(diary: models.HealthDiary) -> HealthDiary:
+def _row_to_entity(diary) -> HealthDiary:
     meals = []
     for meal in diary.meal_set.all():
         meals.append(

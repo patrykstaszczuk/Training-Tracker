@@ -4,19 +4,22 @@ from health_diary.application.queries import (
     HealthDiaryDto,
     SpecificStatisticHistoryDto,
 )
-from health_diary_api import models
+import health_diary_api
 from typing import List
 import datetime
 
 
 class DjangoGettingDailyStatistics(GettingDailyStatistics):
 
+    def __init__(self):
+        self.health_diary_model = health_diary_api.models.HealthDiary
+
     def query(
             self,
             user_id: int,
             date: datetime = datetime.date.today()
             ) -> HealthDiaryDto:
-        diary = models.HealthDiary.objects.get(user_id=user_id, date=date)
+        diary = self.health_diary_model.objects.get(user_id=user_id, date=date)
         return self._row_to_typed_dict(diary)
 
     def _row_to_typed_dict(self, diary: object) -> HealthDiaryDto:
@@ -36,8 +39,11 @@ class DjangoGettingDailyStatistics(GettingDailyStatistics):
 
 class DjangoGettingSpecificStatisticHistory(GettingSpecificStatistic):
 
+    def __init__(self):
+        self.health_diary_model = health_diary_api.models.HealthDiary
+
     def query(self, user_id: int, statistic: str, number: int = 7) -> SpecificStatisticHistoryDto:
-        list_of_values = models.HealthDiary.objects.filter(
+        list_of_values = self.health_diary_model.objects.filter(
             user_id=user_id,
             ).values_list(statistic, flat=True)[:number]
         return self._row_to_typed_dict(list_of_values)

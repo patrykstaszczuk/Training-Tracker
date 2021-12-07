@@ -49,6 +49,8 @@ ALLOWED_HOSTS = []
 INJECTOR_MODULES = [
     'profile.Profile',
     'profile_infrastructure.ProfileInfrastructure',
+    'health_diary.HealthDiary',
+    'health_diary_infrastructure.HealthDiaryInfrastructure'
 ]
 
 

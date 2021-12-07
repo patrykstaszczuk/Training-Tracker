@@ -98,7 +98,7 @@ def test_set_extra_user_information_succeed(repo: ProfileRepository) -> None:
     profile = repo.get(user_id=1)
     input_dto = SetTrainingSpecificInformationDto(
         user_id=profile.user_id,
-        heigth=188,
+        height=188,
         ftp=300,
         max_hr=195,
         lactate_thr=172
@@ -106,7 +106,7 @@ def test_set_extra_user_information_succeed(repo: ProfileRepository) -> None:
     set_user_training_attributes(repo).execute(input_dto)
     profile = repo.get(user_id=1)
 
-    assert profile.heigth == input_dto.heigth
+    assert profile.height == input_dto.height
     assert profile.ftp == input_dto.ftp
     assert profile.max_hr == input_dto.max_hr
     assert profile.lactate_thr == input_dto.lactate_thr
