@@ -7,7 +7,7 @@ from profile.application.queries import (
     ProfileDetails,
     GetUserTrainingProfileDetails
     )
-from profile.domain.value_objects import Zones
+from profile.domain.value_objects import PowerZones, HrZones
 import training_api
 
 
@@ -25,8 +25,8 @@ def _row_to_typed_dict(profile: object) -> ProfileDetails:
         height=profile.height,
         ftp=profile.ftp,
         max_hr=profile.max_hr,
-        hr_zones=Zones.from_db_to_object(profile.hr_zones),
-        pw_zones=Zones.from_db_to_object(profile.pw_zones),
+        hr_zones=profile.hr_zones,
+        pw_zones=profile.pw_zones,
         lactate_thr=profile.lactate_thr
     )
     return dict

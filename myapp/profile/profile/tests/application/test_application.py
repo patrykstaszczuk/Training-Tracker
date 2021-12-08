@@ -19,8 +19,6 @@ from profile import (
     HrZones,
     UserProfile,
     ZonePercent,
-    SetTrainingZonesBoundary,
-    SetTrainingZonesOutputDto,
 )
 from profile.domain.value_objects import (
     MainSport,

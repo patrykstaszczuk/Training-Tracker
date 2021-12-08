@@ -11,6 +11,9 @@ from profile import (
     GetUserTrainingProfileDetails,
     SetTrainingSpecificInformation,
     SetTrainingSpecificInformationDto,
+    SetHrTrainingZones,
+    SetPowerTrainingZones,
+    SetTrainingZonesDto,
 )
 from .serialization import serializers
 
@@ -72,4 +75,28 @@ class ProfileApi(BaseAuthPermClass, APIView):
             lactate_thr=serializer.data.get('lactate_thr')
         )
         self.set_profile_information_uc.execute(dto)
+        return Response(status=status.HTTP_200_OK)
+
+
+class SetHeartRateZones(BaseAuthPermClass, APIView):
+
+    @injector.inject
+    def setup(
+        self,
+        request,
+        set_heart_rate_zones: SetHrTrainingZones,
+        **kwargs
+    ) -> None:
+        self.set_heart_rate_zones = set_heart_rate_zones
+        super().setup(request, kwargs)
+
+    def post(self, request, *args, **kwargs):
+        serializer = serializers.SettingTrainingZonesSerializer(
+            data=request.data)
+        serializer.is_valid(raise_exception=True)
+        dto = SetTrainingZonesDto(
+            user_id=request.user.id,
+            zones=serializer.data.get('zones')
+        )
+        self.set_heart_rate_zones.execute(dto)
         return Response(status=status.HTTP_200_OK)

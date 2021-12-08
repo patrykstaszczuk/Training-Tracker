@@ -1,6 +1,9 @@
 import pytest
+from unittest.mock import patch
 from profile.domain.value_objects import (
     Zones,
+    HrZones,
+    PowerZones,
     ZonePercent,
     MainSport,
     Height,
@@ -21,6 +24,7 @@ def test_create_zone_negative_failed() -> None:
         ZonePercent(-40)
 
 
+@patch.multiple(Zones, __abstractmethods__=set())
 def test_create_zones() -> None:
     zone1 = ZonePercent(50)
     zone2 = ZonePercent(85)
@@ -33,6 +37,7 @@ def test_create_zones() -> None:
     assert len(str_rep) == 5
 
 
+@patch.multiple(Zones, __abstractmethods__=set())
 def test_create_zones_illogical_sequence_faield():
     zone1 = ZonePercent(80)
     zone2 = ZonePercent(85)
@@ -44,6 +49,7 @@ def test_create_zones_illogical_sequence_faield():
         Zones(zone1, zone2, zone3, zone4, zone5)
 
 
+@patch.multiple(Zones, __abstractmethods__=set())
 def test_create_zones_repeated_zone_failed():
     zone1 = ZonePercent(80)
     zone2 = ZonePercent(85)

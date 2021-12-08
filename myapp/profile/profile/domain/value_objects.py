@@ -8,6 +8,10 @@ class ZonePercent:
         self,
         value: int,
     ):
+        try:
+            value = int(value)
+        except ValueError:
+            raise ValueError('Zone percent must be a number')
         if value < 0:
             raise ValueError('Zone percent cannot be negative')
         self._value = value
@@ -27,6 +31,7 @@ class Zones(ABC):
                  zone3: ZonePercent,
                  zone4: ZonePercent,
                  zone5: ZonePercent,
+                 *args,
                  ):
         self._zone1 = zone1.value
         self._zone2 = zone2.value
@@ -49,16 +54,22 @@ class Zones(ABC):
         return string_rep[:-1]
 
     @staticmethod
+    @abstractmethod
     def from_db_to_object(zones_as_string: str) -> 'Zones':
         """ convert string representation of zones to object """
-        if zones_as_string is not None:
-            raw_zones = list(zones_as_string.split("/"))
-            return Zones(*[zone for zone in raw_zones])
-        return
+        pass
 
 
 class HrZones(Zones):
     pass
+
+    @staticmethod
+    def from_db_to_object(zones_as_string: str) -> 'Zones':
+        """ convert string representation of zones to object """
+        if zones_as_string is None:
+            return
+        raw_zones = list(zones_as_string.split("/"))
+        return HrZones(*[ZonePercent(zone) for zone in raw_zones])
 
 
 class PowerZones(Zones):
@@ -69,9 +80,18 @@ class PowerZones(Zones):
                  zone4: ZonePercent,
                  zone5: ZonePercent,
                  zone6: ZonePercent,
+                 *args,
                  ):
         super().__init__(zone1, zone2, zone3, zone4, zone5)
         self._zone6 = zone6.value
+
+    @staticmethod
+    def from_db_to_object(zones_as_string: str) -> 'Zones':
+        """ convert string representation of zones to object """
+        if zones_as_string is None:
+            return
+        raw_zones = list(zones_as_string.split("/"))
+        return PowerZones(*[ZonePercent(zone) for zone in raw_zones])
 
 
 class ProfileAttribute(ABC):

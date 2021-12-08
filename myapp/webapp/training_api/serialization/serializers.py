@@ -15,3 +15,7 @@ class SetTrainingSpecificInformationSerializer(serializers.Serializer):
     ftp = fields.FtpField(required=False)
     max_hr = fields.MaxHrField(required=False)
     lactate_thr = fields.LactateThrField(required=False)
+
+
+class SettingTrainingZonesSerializer(serializers.Serializer):
+    zones = fields.HrZonesField()

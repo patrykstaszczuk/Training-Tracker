@@ -14,12 +14,13 @@ from profile.domain.value_objects import (
     LactateThr,
     )
 from profile.application.use_cases import (
-    SetTrainingZonesBoundary,
-    SetTrainingZonesOutputDto,
     CreateUserProfile,
     CreateUserProfileDto,
     SetTrainingSpecificInformation,
     SetTrainingSpecificInformationDto,
+    SetHrTrainingZones,
+    SetTrainingZonesDto,
+    SetPowerTrainingZones,
     )
 from profile.application.queries import (
     GetUserTrainingProfileDetails,
@@ -45,13 +46,14 @@ __all__ = [
     "MaxHr",
     "LactateThr",
     # use cases
-    "SetTrainingZonesBoundary",
     "CreateUserProfile",
     "SetTrainingSpecificInformation",
+    "SetHrTrainingZones",
+    "SetPowerTrainingZones",
     # input dtos
-    "SetTrainingZonesOutputDto",
     "SetTrainingSpecificInformationDto",
     "CreateUserProfileDto",
+    "SetTrainingZonesDto",
     # queries
     "GetUserTrainingProfileDetails",
 ]
@@ -71,3 +73,17 @@ class Profile(injector.Module):
         repo: ProfileRepository
     ) -> SetTrainingSpecificInformation:
         return SetTrainingSpecificInformation(repo)
+
+    @injector.provider
+    def set_hr_training_zones_uc(
+        self,
+        repo: ProfileRepository
+    ) -> SetHrTrainingZones:
+        return SetHrTrainingZones(repo)
+
+    @injector.provider
+    def set_power_training_zones_uc(
+        self,
+        repo: ProfileRepository
+    ) -> SetPowerTrainingZones:
+        return SetPowerTrainingZones(repo)

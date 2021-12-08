@@ -6,8 +6,6 @@ from profile.application.use_cases.set_zones import (
     SetHrTrainingZones,
     SetPowerTrainingZones,
     SetTrainingZonesDto,
-    SetTrainingZonesBoundary,
-    SetTrainingZonesOutputDto,
 )
 from profile.application.use_cases.create_profile import (
     CreateUserProfile,
@@ -22,6 +20,4 @@ __all__ = [
     "SetHrTrainingZones",
     "SetPowerTrainingZones",
     "SetTrainingZonesDto",
-    "SetTrainingZonesBoundary",
-    "SetTrainingZonesOutputDto",
 ]

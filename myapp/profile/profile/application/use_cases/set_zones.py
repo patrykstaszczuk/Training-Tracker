@@ -15,15 +15,15 @@ class SetTrainingZonesDto:
     zones: Zones
 
 
-@dataclass(frozen=True)
-class SetTrainingZonesOutputDto:
-    zones: List[Tuple[ZonePercent, int]]
-
-
-class SetTrainingZonesBoundary:
-    @abstractmethod
-    def present(self, output_dto: SetTrainingZonesOutputDto) -> None:
-        pass
+# @dataclass(frozen=True)
+# class SetTrainingZonesOutputDto:
+#     zones: List[Tuple[ZonePercent, int]]
+#
+#
+# class SetTrainingZonesBoundary:
+#     @abstractmethod
+#     def present(self, output_dto: SetTrainingZonesOutputDto) -> None:
+#         pass
 
 
 class SetTrainingZones(ABC):
