@@ -25,21 +25,20 @@ def diary_with_meals(user):
 @pytest.mark.django_db
 def test_getting_diary(user, diary_with_meals) -> None:
     date = datetime.date.today()
-    diary = DjangoHealthDiaryRepository.get(user_id=user.id, date=date)
+    diary = DjangoHealthDiaryRepository().get(user_id=user.id, date=date)
     assert diary.meals[0].name == diary_with_meals.meal_set.all()[0].name
 
 
 @pytest.mark.django_db
 def test_should_create_diary_for_today_if_not_exists(user) -> None:
-    assert DjangoHealthDiaryRepository.get(user_id=user.id)
+    assert DjangoHealthDiaryRepository().get(user_id=user.id)
 
 
 @pytest.mark.django_db
 def test_should_raise_domain_exception_if_diary_for_given_date_not_found(user) -> None:
     with pytest.raises(DiaryDoesNotExists):
         date = datetime.date.today() - datetime.timedelta(1)
-        DjangoHealthDiaryRepository.get(
-            user_id=user.id, date=date)
+        DjangoHealthDiaryRepository().get(user_id=user.id, date=date)
 
 
 @pytest.mark.django_db
@@ -56,9 +55,9 @@ def test_saving_diary(user) -> None:
         rest_hr=54,
     )
     diary.add_meals(meals)
-    DjangoHealthDiaryRepository.save(diary)
+    DjangoHealthDiaryRepository().save(diary)
 
-    diary = DjangoHealthDiaryRepository.get(user.id)
+    diary = DjangoHealthDiaryRepository().get(user.id)
     assert len(diary.meals) == 2
 
 
@@ -76,12 +75,12 @@ def test_remove_meals_from_diary(user) -> None:
         rest_hr=54,
     )
     diary.add_meals(meals)
-    DjangoHealthDiaryRepository.save(diary)
+    DjangoHealthDiaryRepository().save(diary)
 
-    diary = DjangoHealthDiaryRepository.get(user.id)
+    diary = DjangoHealthDiaryRepository().get(user.id)
     meals_to_be_remove = [diary.meals[0].meal_id]
     diary.remove_meals(meals_to_be_remove)
-    DjangoHealthDiaryRepository.save(diary)
+    DjangoHealthDiaryRepository().save(diary)
 
-    diary = DjangoHealthDiaryRepository.get(user.id)
+    diary = DjangoHealthDiaryRepository().get(user.id)
     assert len(diary.meals) == 1

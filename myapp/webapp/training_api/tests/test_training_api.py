@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 CREATING_PROFILE_URL = reverse('training_api:profile-create')
-RETRIEVE_PROFILE_URL = reverse('training_api:profile-retrieve')
+RETRIEVE_PROFILE_URL = reverse('training_api:profile')
 
 
 class TrainingApiTests(TestCase):
@@ -21,12 +21,12 @@ class TrainingApiTests(TestCase):
 
         payload = {
             'main_sport': 'cycling',
-            'heigth': 180,
+            'height': 180,
         }
         res = self.client.post(CREATING_PROFILE_URL, payload, format='json')
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         profile = Profile.objects.get(user=self.user.id)
-        self.assertEqual(profile.heigth, payload['heigth'])
+        self.assertEqual(profile.height, payload['height'])
 
     def test_retrieving_profile_endpoint(self) -> None:
         profile = Profile.objects.create(

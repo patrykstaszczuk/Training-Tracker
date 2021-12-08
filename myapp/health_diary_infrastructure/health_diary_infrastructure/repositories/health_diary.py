@@ -1,10 +1,12 @@
+import datetime
+
+import health_diary_api
+
 from health_diary.application.repositories import HealthDiaryRepository
 from health_diary.domain.exceptions import (
     DiaryDoesNotExists
 )
 from health_diary.domain.entities import HealthDiary, Meal
-import health_diary_api
-import datetime
 
 
 class DjangoHealthDiaryRepository(HealthDiaryRepository):

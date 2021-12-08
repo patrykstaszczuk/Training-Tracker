@@ -1,7 +1,7 @@
+import training_api
 from profile.application.repositories import ProfileRepository
 from profile.domain.value_objects import UserId, Zones, ProfileAttribute
 from profile.domain.entities import UserProfile
-import training_api
 
 
 class DjangoProfileRepository(ProfileRepository):
